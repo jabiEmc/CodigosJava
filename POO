@@ -1,0 +1,140 @@
+// En este ejercicio voy a crear una clase Peliculas en las que se almacenan los datos de las peliculas, una clase MainPeliculas con el metodo main y un Enum con el tipo de pelicula, es un ejemplo muy basico y se puede mejorar 
+
+CLASE PELICULAS
+
+public class Peliculas {
+	//Almacenar los siguientes datos: Titulo, duracion (en minutos), director y año en el que salió la pelicula
+	private String titulo;
+	private String director;
+	private int duracion;
+	private int año;
+	private TipoPelicula tipoPelicula;
+	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
+	public String getDirector() {
+		return director;
+	}
+	
+	public void setDirector(String director) {
+		this.director = director;
+	}
+	
+	public int getDuracion() {
+		return duracion;
+	}
+	//La duracion no puede ser 0 o un numero negativo
+	public void setDuracion(int duracion) {
+		if (duracion <= 0) {
+			System.out.println("Error en la duracion de la pelicula");
+		} else {
+			this.duracion = duracion;
+		}
+	}
+	public int getAño() {
+		return año;
+	}
+	//El año no puede ser anterior a 1903
+	public void setAño(int año) {
+		if (año < 1903) {
+			System.out.println("La fecha introducida es erronea");
+		} else {
+			this.año = año;
+		}
+	}
+	
+	public TipoPelicula getTipoPelicula() {
+		return tipoPelicula;
+	}
+
+	public void setTipoPelicula(TipoPelicula tipoPelicula) {
+		this.tipoPelicula = tipoPelicula;
+	}	
+	
+	public Peliculas(String titulo, String director, int duracion, int año, TipoPelicula tipoPelicula) {
+		
+		this.titulo = titulo;
+		this.director = director;
+		this.duracion = duracion;
+		this.año = año;
+		this.tipoPelicula = tipoPelicula;
+	}
+	
+	public Peliculas() {
+		
+	}
+
+	@Override
+	public String toString() {
+		return "[titulo=" + titulo + ", director=" + director + ", duracion=" + duracion + ", año=" + año
+				+ ", tipoPelicula=" + tipoPelicula + "]";
+	}
+
+	public static void mostrarPeliculas(Peliculas...arrayPeliculas) {
+		for (int i = 0; i < arrayPeliculas.length; i++) {
+			if (arrayPeliculas[i] != null) {
+				System.out.println(arrayPeliculas[i]);
+			} else {
+				continue;
+			}
+		}
+
+	}
+}
+
+
+
+CLASE MAIN PELICULAS
+public class MainPeliculas {
+
+	public static void main(String[] args) {
+		
+		Peliculas pelicula1 = new Peliculas();
+		Peliculas pelicula2 = new Peliculas("Titulo 2", "Director 2", 135, 2004,TipoPelicula.Comedia);
+		
+		pelicula1.setTitulo("Titulo 1");
+		pelicula1.setDirector("Director 1");
+		pelicula1.setDuracion(150);
+		pelicula1.setAño(2012);
+		pelicula1.setTipoPelicula(TipoPelicula.Drama);
+		
+		System.out.println("Lista peliculas:");
+		System.out.println(pelicula1);
+		System.out.println(pelicula2);
+		
+		System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------");
+		//Ahora vamos a hacer lo mismo pero con un array
+		
+		Peliculas []ArrayPeliculas = new Peliculas[10];
+		ArrayPeliculas[0] = new Peliculas();
+		ArrayPeliculas[1] = new Peliculas("Titulo 4", "Director 4", 100, 2007, TipoPelicula.Terror);
+		
+		ArrayPeliculas[0].setTitulo("Titulo 3");
+		ArrayPeliculas[0].setDirector("Director 3");
+		ArrayPeliculas[0].setDuracion(125);
+		ArrayPeliculas[0].setAño(2014);
+		ArrayPeliculas[0].setTipoPelicula(TipoPelicula.Fantasia);
+		
+		//System.out.println(ArrayPeliculas[0]);
+		
+		ArrayPeliculas[7] = new Peliculas("Titulo 7", "Director 7", 110, 1995, TipoPelicula.Romantica);
+		
+		Peliculas.mostrarPeliculas(ArrayPeliculas);
+	}
+
+}
+
+
+
+ENUM TipoPelicula
+
+public enum TipoPelicula {
+	Comedia,Drama,Fantasia,Terror,Romantica
+}
+
