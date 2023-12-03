@@ -1,0 +1,103 @@
+package ejercicio;
+
+import java.util.Scanner;
+
+public class Main extends Concesionario {
+
+	public static void main(String[] args) {
+		
+		// Un concensionario es un conjunto de coches
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		int continuar = 1;
+		
+		Coche coches[] = new Coche[10];
+		
+		Concesionario miConcesionario = new Concesionario("Concesionario Javi",coches.length);
+		
+		//Matrícula, año de Fabricación , Marca, Modelo, Precio , Motor
+		
+		coches[0] = new Coche("0000AAA",2020,"Ford","Fiesta",9500.50f,TipoMotor.Diesel);
+		coches[1] = new Coche("1111BBB",2019,"Audi","A4",29500.75f,TipoMotor.Gasolina);
+		coches[2] = new Coche("2222CCC",2018,"Seat","Leon",6500.25f,TipoMotor.Gasolina);
+		
+		coches[3] = new Coche("3333DDD",2017,"Fiat","Panda",7500.40f,TipoMotor.Gasolina);
+		coches[4] = new Coche("4444EEE",2016,"Seat","Ibiza",5500.35f,TipoMotor.Gasolina);
+		coches[5] = new Coche("5555FFF",2015,"Renault","Megane",8500.15f,TipoMotor.Gasolina);
+		
+		Main controlador = new Main();
+
+		controlador.addCocheVenta(coches[0]);
+		controlador.addCocheVenta(coches[1]);
+		controlador.addCocheVenta(coches[2]);
+		
+		controlador.addCocheVendido(coches[3]);
+		controlador.addCocheVendido(coches[4]);
+		controlador.addCocheVendido(coches[5]);
+		
+		System.out.println(miConcesionario.getNombre());
+		
+		while (continuar == 1) {
+			
+			System.out.println("Opciones:");
+			System.out.println("1. Lista de coches en venta");
+			System.out.println("2. Lista de coches vendidos");
+			System.out.println("3. Buscar vehiculo en venta por matricula");
+			System.out.println("4. Buscar vehiculo vendido por matricula");
+			System.out.println("5. Mostrar posicion del vehiculo en el array de vehiculos en venta");
+			System.out.println("6. Cantidad de coches en venta");
+			System.out.println("7. Vender coche");
+			System.out.println("8. Mostrar todos los vehiculos en venta y los vendidos");
+			
+			int opcion = scanner.nextInt();
+			
+			switch (opcion) {
+			case 1:
+				System.out.println("Lista de coches a la venta");
+				System.out.println(controlador.cochesEnVenta());
+				break;
+			case 2:
+				System.out.println("\nVehiculos vendidos:");
+				System.out.println(controlador.cochesVendidos());
+				break;
+			case 3:
+				System.out.println("\nVehiculo por matricula:");
+				String buscarMatricula = scanner.next();
+				System.out.println(controlador.getCocheByMatricula(buscarMatricula));
+				break;
+			case 4: 
+				System.out.println("Vehiculo vendido por matricula:");
+				String matriculaVendido = scanner.next();
+				System.out.println(controlador.getCocheVendidoByMatricula(matriculaVendido));
+				break;
+			case 5:
+				System.out.println("Buscar posicion en el array por matricula:");
+				String posicionMatricula = scanner.next();
+				System.out.println(controlador.getPosicionCocheByMatricula(posicionMatricula));
+				break;
+			case 6:
+				System.out.println("Cantidad de coches en venta:");
+				System.out.println(controlador.contarCochesEnVenta());
+				break;
+			case 7:
+				System.out.println("Matricula del vehiculo vendido:");
+				String matriculaCocheVendido = scanner.next();
+				System.out.println(controlador.venderCoche(matriculaCocheVendido));	
+				break;
+			case 8:
+				System.out.println(controlador);
+				break;
+			default:
+				break;
+			}
+			
+			System.out.println("\n¿Desea continuar? 1. Si || 2. No");
+			continuar = scanner.nextInt();
+		}
+		
+		System.out.println("Salida");
+		
+	}
+
+}
