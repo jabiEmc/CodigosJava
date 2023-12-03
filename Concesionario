@@ -1,0 +1,223 @@
+package ejercicio;
+
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class Concesionario {
+	
+	private Coche cochesVenta[];
+	private Coche cochesVendidos[];
+	
+	
+	private static String nombre;
+	
+	
+	//Constructores
+	
+	public Concesionario() {
+		cochesVenta = new Coche[10];
+		cochesVendidos = new Coche[10];
+	}
+	
+	public Concesionario(String nombre, int capacidad) {
+		Concesionario.nombre = nombre;
+		cochesVenta = new Coche[capacidad];
+		cochesVendidos = new Coche[capacidad];
+	}
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		Concesionario.nombre = nombre;
+	}
+
+	
+	
+	//Método que elimina un coche de la matriz por matrícula
+	
+	public boolean deleteCocheVenta(String matricula) {
+		for (int i = 0; i < cochesVenta.length; i++) {
+			if(cochesVenta[i]!=null) {
+				if(cochesVenta[i].getMatricula().equals(matricula)) {
+					cochesVenta[i] = null;
+					//Ordenar la matriz para pasar todas las posiciones vacías al final
+					reordenarMatriz();
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	public void reordenarMatriz() {
+		Coche copia[] = new Coche[cochesVenta.length];
+		
+		int contador = 0;
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			if(cochesVenta[i]!=null) {
+			 copia[contador] = cochesVenta[i];
+			 contador++;
+			}			
+		}
+		
+		cochesVenta = copia;
+		
+		}
+	
+	public boolean addCocheVenta(Coche c) {
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			
+			if (cochesVenta[i] == null) {
+				cochesVenta[i] = c;
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean addCocheVendido(Coche c) {
+		
+		for (int i = 0; i < cochesVendidos.length; i++) {
+			
+			if (cochesVendidos[i] == null) {
+				cochesVendidos[i] = c;
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		
+		return "Concesionario: " + nombre +"\n\nCoches en venta=" + cochesEnVenta() + "\n\nCoches Vendidos=\n"
+				+ cochesVendidos();
+	}
+	
+	public String cochesEnVenta() {
+		String info = "";
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			
+			if (cochesVenta[i] != null) {
+				info+="\n";
+				info+=cochesVenta[i].toString();
+			}
+		}
+		
+	
+		return info;
+	}
+
+	public String cochesVendidos() {
+		
+		String info = "";
+		
+		for (int i = 0; i < cochesVendidos.length; i++) {
+			
+			if (cochesVendidos[i] != null) {
+				info+=cochesVendidos[i].toString();
+				info+= "\n";
+			}
+		}
+		
+		return info;
+		
+	}
+	
+	public Coche getCocheByMatricula(String matricula) {
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			
+			if (cochesVenta[i].getMatricula().equals(matricula)) {
+				return cochesVenta[i];
+			}
+			
+		}
+		return null;
+		
+	}
+	
+	public Coche getCocheVendidoByMatricula(String matricula) {
+		
+		for (int i = 0; i < cochesVendidos.length; i++) {
+			
+			if (cochesVendidos[i].getMatricula().equals(matricula)) {
+				return cochesVendidos[i];
+			}
+		}
+		
+		return null;
+	}
+	
+	public int getPosicionCocheByMatricula(String matricula) {
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			
+			if (cochesVenta[i].getMatricula().equals(matricula)) {
+				return i;
+			}
+			
+		}
+		
+		return -1;
+	}
+	
+	public int contarCochesEnVenta() {
+		
+		int contador = 0;
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+			
+			if (cochesVenta[i] != null) {
+				contador++;
+			} else {
+				continue;
+			}
+			
+		}
+		
+		return contador;
+	}
+	
+	public boolean venderCoche(String matricula) {
+		
+		for (int i = 0; i < cochesVenta.length; i++) {
+		
+			if (cochesVenta[i] == null) {
+				continue;
+			} else {
+				if (cochesVenta[i].getMatricula().equals(matricula)) {
+					
+					for (int j = 0; j < cochesVendidos.length; j++) {
+						
+						if (cochesVendidos[j] == null) {
+							cochesVendidos[j] = cochesVenta[i];
+							cochesVenta[i] = null;
+							return true;
+						}
+					}
+				}
+			}	
+		}
+			
+		
+		
+		return false;
+		
+		
+	}
+	
+	
+	
+
+}
